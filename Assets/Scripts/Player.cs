@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -24,22 +25,22 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        Vector3 movement = new Vector3(Input.GetAxis("Vertical"), 0f, 0f);
         transform.position += movement * Time.deltaTime * speed;
 
-        if(Input.GetAxis("Horizontal") > 0f)
+        if(Input.GetAxis("Vertical") > 0f)
         {
             anim.SetBool("run", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
 
-        if (Input.GetAxis("Horizontal") < 0f)
+        if (Input.GetAxis("Vertical") < 0f)
         {
             anim.SetBool("run", true);
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
-        if (Input.GetAxis("Horizontal") == 0f)
+        if (Input.GetAxis("Vertical") == 0f)
         {
             anim.SetBool("run", false);
         }
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        if(Input.GetButtonDown("Jump") && !isJumping)
+        if (Input.GetButtonDown("Jump") && !isJumping)
         {
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             anim.SetBool("jump", true);
